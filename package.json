@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/saikumardev123/be-ecommerce/issues"
   },
-  "homepage": "https://github.com/saikumardev123/be-ecommerce#readme"
+  "homepage": "https://github.com/saikumardev123/be-ecommerce#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  }
 }
