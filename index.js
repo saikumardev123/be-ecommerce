@@ -1,5 +1,24 @@
-var dotenv = require('dotenv');
 
-dotenv.config();
+var express = require('express');
+var env = require('dotenv');
 
-console.log(process.env.MONGO_URL)
+
+env.config();
+
+var dbService = require('./services/db.service');
+var userRouter = require('./routes/user.route');
+
+dbService.connectToDB(process.env.MONGO_URL);
+
+var app = express();
+app.use(express.json());
+app.use(userRouter);
+
+app.get("/healthcheck", (req,res) => {
+    res.send("<h1>App is running!!</h1>")
+})
+
+
+app.listen(process.env.PORT_NO, () => {
+    console.log("server started on", process.env.PORT_NO);
+})
