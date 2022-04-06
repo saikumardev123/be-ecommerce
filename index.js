@@ -1,6 +1,7 @@
 
 var express = require('express');
 var env = require('dotenv');
+var cors = require('cors');
 
 
 env.config();
@@ -11,6 +12,7 @@ var userRouter = require('./routes/user.route');
 dbService.connectToDB(process.env.MONGO_URL);
 
 var app = express();
+app.use(cors());
 app.use(express.json());
 app.use(userRouter);
 
