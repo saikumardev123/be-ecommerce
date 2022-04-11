@@ -23,7 +23,7 @@ exports.authMiddleware = function(req,res,next){
     }
     else {
         console.log("Unauthorized");
-        res.send("unauthorized!!");
+        res.status(401).send("unauthorized!!");
     }
 }
 
