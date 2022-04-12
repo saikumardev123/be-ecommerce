@@ -13,7 +13,10 @@ exports.register = (req,res) => {
          else{
              console.log(doc);
              if(doc){
-                 res.send("user registered successfully");
+                var _id= doc.id;
+                var token = jwt.sign( {payload:_id},'dl');
+                 res.send({token:token, isLoggedIn: true});
+                // res.send("user registered successfully");
              }
          }
      })
