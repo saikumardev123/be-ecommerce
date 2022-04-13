@@ -1,8 +1,14 @@
 var UserModel = require('../models/user.model');
 var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
 exports.register = (req,res) => {
     var body = req.body;
-    
+     var password =  req.body.password;
+     var salt = bcrypt.genSaltSync(10);
+     var hashedPassword = bcrypt.hashSync(password,salt);
+     console.log("hashedPassword",hashedPassword);
+   body.password = hashedPassword;
+   console.log("body", body);
      var userDocument=new UserModel(body);
      userDocument.save((err,doc)=>{
 
@@ -35,8 +41,7 @@ exports.login = (req, res) =>{
          }
          if(result.length > 0){
              var user = result[0];
-              if(user.password == password){
-                  
+              if(bcrypt.compareSync(password,user.password)){
                 var _id= user.id;
                   var token = jwt.sign( {payload:_id},'dl');
                    res.send({token:token, isLoggedIn: true});
